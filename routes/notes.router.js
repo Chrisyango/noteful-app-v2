@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const knex = require('../knex');
 
 // Create an router instance (aka "mini-app")
 const router = express.Router();
@@ -16,6 +17,15 @@ const notes = simDB.initialize(data);
 /* ========== GET/READ ALL NOTES ========== */
 router.get('/notes', (req, res, next) => {
   const { searchTerm } = req.query;
+
+  knex.select()
+    .from('notes')
+    .where(`%${searchTerm}%`)
+    .debug(true)
+    .then(list => {
+      res.json(list);
+    })
+    .catch( err => next( err ) );
   /* 
   notes.filter(searchTerm)
     .then(list => {
@@ -28,6 +38,18 @@ router.get('/notes', (req, res, next) => {
 /* ========== GET/READ SINGLE NOTES ========== */
 router.get('/notes/:id', (req, res, next) => {
   const noteId = req.params.id;
+
+  knex.select()
+    .from('notes')
+    .where({id: noteId})
+    .debug(true)
+    .then(item => {
+      if (item) {
+        res.json(item);
+      } else {
+        next();
+      }
+    });
 
   /*
   notes.find(noteId)
@@ -62,6 +84,21 @@ router.put('/notes/:id', (req, res, next) => {
     return next(err);
   }
 
+  knex('notes')
+    .where({id: noteId})
+    .update({
+      title: updateObj.title,
+      content: updateObj.content
+    })
+    .debug(true)
+    .then(item => {
+      if (item) {
+        res.json(item);
+      } else {
+        next();
+      }
+    });
+
   /*
   notes.update(noteId, updateObj)
     .then(item => {
@@ -87,6 +124,16 @@ router.post('/notes', (req, res, next) => {
     return next(err);
   }
 
+  knex('notes')
+    .insert(newItem)
+    .debug(true)
+    .then(item => {
+      if (item) {
+        res.location(`http://${req.headers.host}/notes/${item.id}`).status(201).json(item);
+      }
+    })
+    .catch(err => next(err));
+
   /*
   notes.create(newItem)
     .then(item => {
@@ -101,6 +148,19 @@ router.post('/notes', (req, res, next) => {
 /* ========== DELETE/REMOVE A SINGLE ITEM ========== */
 router.delete('/notes/:id', (req, res, next) => {
   const id = req.params.id;
+
+  knex('notes')
+    .where({id: id})
+    .del()
+    .debug(true)
+    .then(count => {
+      if (count) {
+        res.status(204).end();
+      } else {
+        next();
+      }
+    })
+    .catch(err => next(err));
   
   /*
   notes.delete(id)
