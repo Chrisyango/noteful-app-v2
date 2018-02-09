@@ -1,0 +1,11 @@
+language: node_js
+node_js: node
+services:
+- postgresql
+deploy:
+  provider: heroku
+  api_key:
+    secure: u/a016+ZL8v8vTDo4PW/uqkYzxTGF1Hnq7j+Ink7eHfTGtVCJIThEqW1d8QQ4YC0As5vzM15tSC53g0HN8jMr+beGVlZnmmX2L3qjaLbcrzoyjBWgrtN6DPe4nojhIQ1n8bls9RXopazUxYDEAGnMxqOyBNvx9lrG+v/v3qKNxLn6daxHGUg8DhsI7rwPS7cNnAyVmdibe7gHFhsQb9FOymaM09tksiif89rHA4c2pkbbV6Xr2PspUNVv49m201d/2gV19DEW277Bl4pwjNYANIHCWBZTOdKZxmItIHhoaU8q0wZ3CfSuaXXQlIoqUProIC5syaKdef/H0bJzh4PAfc64EdVU3fNadys1dR07zKg3GAO/p7i+cN5vQyN57NeSJ59V7GPbk14vlWRlt3Q8oE2bhfp7r/htd4rIgWaucdUzxNtgW3JDALO0GnbieyxE/NOFxz0yvmv//G3pKfFTbU9YL8hVb2WHwZabduv5pyqcU+ZuFhO0TKzZ5CYHl2CQ3krlDbrciywOJ/QvcsjvBVfpWCvuDYJJ4oq58myM74NQV1Rd7EYZ440dczS/uf+6VpCQp9FcVfoIRD/dDu9KTIdKUUfj4Settb5OBKxQMudJe8EHdzkWUGwGTqeqAwM8q1LZJCGZMjHJRbn/953KZEzL4fhy8JFa3GBfi1Nuig=
+  app: noteful-app-v2
+  on:
+    repo: Chrisyango/noteful-app-v2
