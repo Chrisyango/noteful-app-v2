@@ -4,6 +4,7 @@ const knex = require('../knex');
 
 // knex.select()
 //   .from('notes')
+//   .where('title', 'like', '%make%')
 //   .debug(true)
 //   .then(results => console.log(JSON.stringify(results, null, 4)))
 //   .catch( err => console.log( err ) );
@@ -34,12 +35,12 @@ const knex = require('../knex');
 // .then(results => console.log(JSON.stringify(results, null, 4)))
 // .catch( err => console.log( err ) );
 
-knex('notes')
-  .where({id: 1005})
-  .del()
-  .debug(true)
-  .then(results => console.log(JSON.stringify(results, null, 4)))
-  .catch( err => console.log( err ) );
+// knex('notes')
+//   .where({id: 1005})
+//   .del()
+//   .debug(true)
+//   .then(results => console.log(JSON.stringify(results, null, 4)))
+//   .catch( err => console.log( err ) );
 
 knex.destroy().then(() => {
   console.log('database connection closed');
