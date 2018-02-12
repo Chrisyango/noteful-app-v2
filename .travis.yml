@@ -6,4 +6,4 @@ services:
   - postgresql
 before_script:
   - psql -U postgres -c 'create database "noteful-test";'
-  - psql -U postgres -f ./db/noteful-app.1.sql;
+  - psql -U postgres -f ./db/noteful-app.1.sql -d noteful-test
